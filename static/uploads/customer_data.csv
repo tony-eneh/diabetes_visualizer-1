@@ -1,0 +1,11 @@
+CustomerID,Name,Age,Gender,Location,TotalPurchaseAmount,NumberOfPurchases,LastPurchaseDate,EngagementScore
+1001,John Doe,34,Male,New York,1200,15,2024-09-20,85
+1002,Jane Smith,28,Female,California,850,8,2024-09-18,72
+1003,Michael Johnson,45,Male,Texas,2450,22,2024-09-17,90
+1004,Alice Brown,31,Female,Florida,780,6,2024-09-15,65
+1005,Robert Davis,40,Male,Illinois,3200,30,2024-09-19,92
+1006,Linda Wilson,25,Female,California,550,5,2024-09-12,55
+1007,David Miller,38,Male,New York,1100,13,2024-09-18,81
+1008,Susan Lee,29,Female,Texas,930,9,2024-09-16,78
+1009,James White,33,Male,Florida,870,10,2024-09-15,69
+1010,Emily Harris,27,Female,Illinois,1250,14,2024-09-14,87

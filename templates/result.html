@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Diabetes Data Visualizer Results</title>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+	<h1>Blood Sugar Analysis</h1>
+    
+	<div id="chart"></div> <!-- Plotly graph will appear here -->
+    
+	<h2>Statistics:</h2>
+	<p>Average Blood Sugar: {{ avg_blood_sugar }}</p>
+	<p>Peak Blood Sugar: {{ peak_blood_sugar }}</p>
+
+	<h2>Trend Analysis:</h2>
+	<p>Current Trend: {{ trends }}</p>
+
+	<h2>Insights:</h2>
+	<p>{{ insights }}</p>
+
+	<h2>Recommendations:</h2>
+	<p>{{ recommendations }}</p>
+    
+	<a href="/">Upload another file</a>
+    
+	<script>
+    	// Rename the data variable to avoid conflict
+    	const bloodSugarDataJson = {{ data | safe }};
+   	 
+    	const dates = bloodSugarDataJson.map(item => item.Date);
+    	const bloodSugarLevels = bloodSugarDataJson.map(item => item.BloodSugar);
+    	const smaLevels = bloodSugarDataJson.map(item => item.SMA);
+   	 
+    	// Plotly graph
+    	var trace1 = {
+        	x: dates,
+        	y: bloodSugarLevels,
+        	mode: 'lines+markers',
+        	name: 'Blood Sugar'
+    	};
+   	 
+    	var trace2 = {
+        	x: dates,
+        	y: smaLevels,
+        	mode: 'lines',
+        	name: 'Moving Average (SMA)',
+        	line: {
+            	dash: 'dash',
+            	color: 'red'
+        	}
+    	};
+   	 
+    	var layout = {
+        	title: 'Blood Sugar Levels Over Time',
+        	xaxis: {
+            	title: 'Date'
+        	},
+        	yaxis: {
+            	title: 'Blood Sugar Level'
+        	}
+    	};
+   	 
+    	var plotData = [trace1, trace2];
+   	 
+    	Plotly.newPlot('chart', plotData, layout);
+	</script>
+</body>
+</html>
+
+
