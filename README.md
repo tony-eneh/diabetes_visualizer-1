@@ -26,7 +26,7 @@ The **Diabetes Data Visualizer** is a Flask-based web application that enables u
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/diabetes-data-visualizer.git
+git clone https://github.com/Preciousejiba/diabetes-data-visualizer.git
 cd diabetes-data-visualizer
 
 ### Create a Virtual Environment (Optional)
