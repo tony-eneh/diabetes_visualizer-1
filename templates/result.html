@@ -1,73 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Diabetes Data Visualizer Results</title>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Sugar Analysis - Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #007BFF;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #333333;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0 0 0 1rem;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        #chart {
+            margin: 2rem 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            text-align: center;
+            background: #007BFF;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #777777;
+        }
+    </style>
 </head>
 <body>
-	<h1>Blood Sugar Analysis</h1>
-    
-	<div id="chart"></div> <!-- Plotly graph will appear here -->
-    
-	<h2>Statistics:</h2>
-	<p>Average Blood Sugar: {{ avg_blood_sugar }}</p>
-	<p>Peak Blood Sugar: {{ peak_blood_sugar }}</p>
+    <div class="container">
+        <h1>Blood Sugar Analysis Results</h1>
 
-	<h2>Trend Analysis:</h2>
-	<p>Current Trend: {{ trends }}</p>
+        <div id="chart"></div> <!-- Plotly chart will be rendered here -->
 
-	<h2>Insights:</h2>
-	<p>{{ insights }}</p>
+        <h2>Statistics:</h2>
+        <p><strong>Average Blood Sugar:</strong> {{ avg_blood_sugar }}</p>
+        <p><strong>Peak Blood Sugar:</strong> {{ peak_blood_sugar }}</p>
 
-	<h2>Recommendations:</h2>
-	<p>{{ recommendations }}</p>
-    
-	<a href="/">Upload another file</a>
-    
-	<script>
-    	// Rename the data variable to avoid conflict
-    	const bloodSugarDataJson = {{ data | safe }};
-   	 
-    	const dates = bloodSugarDataJson.map(item => item.Date);
-    	const bloodSugarLevels = bloodSugarDataJson.map(item => item.BloodSugar);
-    	const smaLevels = bloodSugarDataJson.map(item => item.SMA);
-   	 
-    	// Plotly graph
-    	var trace1 = {
-        	x: dates,
-        	y: bloodSugarLevels,
-        	mode: 'lines+markers',
-        	name: 'Blood Sugar'
-    	};
-   	 
-    	var trace2 = {
-        	x: dates,
-        	y: smaLevels,
-        	mode: 'lines',
-        	name: 'Moving Average (SMA)',
-        	line: {
-            	dash: 'dash',
-            	color: 'red'
-        	}
-    	};
-   	 
-    	var layout = {
-        	title: 'Blood Sugar Levels Over Time',
-        	xaxis: {
-            	title: 'Date'
-        	},
-        	yaxis: {
-            	title: 'Blood Sugar Level'
-        	}
-    	};
-   	 
-    	var plotData = [trace1, trace2];
-   	 
-    	Plotly.newPlot('chart', plotData, layout);
-	</script>
+        <h2>Trend Analysis:</h2>
+        <p><strong>Current Trend:</strong> {{ trend }}</p>
+
+        <h2>Insights:</h2>
+        <ul>
+            {% for insight in insights %}
+                <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Recommendations:</h2>
+        <p>Monitor trends regularly and consult a healthcare provider if abnormalities persist.</p>
+
+        <a href="/" class="back-button">Upload Another File</a>
+    </div>
+    <footer>
+        <p>&copy; 2025 Diabetes Data Visualizer. All rights reserved.</p>
+    </footer>
+
+    <script>
+        var plotData = {{ plot_json | safe }};
+        Plotly.newPlot('chart', plotData.data, plotData.layout);
+    </script>
 </body>
 </html>
-
-
